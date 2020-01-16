@@ -15,7 +15,7 @@
 
 ![2719.jpg](<https://github.com/zenmin/luckdraw/blob/master/2719.jpg>)
 
- 		![2732.jpg](<(https://github.com/zenmin/luckdraw/blob/master/2732.jpg)>)
+![2732.jpg](<https://github.com/zenmin/luckdraw/blob/master/2732.jpg>)
 
 ## 运行程序
 
