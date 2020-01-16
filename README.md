@@ -83,6 +83,16 @@ ENTRYPOINT ["java","-Xms128m","-Xmx128m","-jar", "/luckdraw-0.0.1-SNAPSHOT.jar"]
 docker run --name luckdraw -d -p 8080:2345 luckdraw
 ```
 
+
+
+#### 至此程序就跑起来了 ，管理页面：http://ip:端口/mgr
+
+#### 如果你需要修改源码 请查看下面源码构建步骤
+
+-----
+
+
+
 ## 源码构建
 
 ### 方式① 本地jar启动
