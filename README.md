@@ -33,7 +33,7 @@ set token xxxx(你的令牌)
 
 ### 方式① 本地jar启动
 
-- 需要JRE环境
+前提：需要JRE环境 下面有下载地址
 
 1、[下载release包](https://github.com/zenmin/luckdraw/releases/download/1.0/luckdraw-0.0.1-SNAPSHOT.jar)
 
@@ -49,7 +49,7 @@ java -jar -Xms128m -Xmx128m ./luckdraw-0.0.1-SNAPSHOT.jar
 
 ### 方式② Docker启动(推荐)
 
-- 需要准备docker环境 下面有安装教程
+前提： 需要准备docker环境 下面有安装教程
 
 1、[下载release包](https://github.com/zenmin/luckdraw/releases/download/1.0/luckdraw-0.0.1-SNAPSHOT.jar)
 
