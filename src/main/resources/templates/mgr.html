@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+    <title>年会抽奖</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/demos.css">
+    <style type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="tools">
+
+    <div v-if="showMain">
+
+        员工管理:
+        <form id="frm" role="form">
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell" style="">
+                    <div class="weui-cell__hd"><label class="weui-label">员工列表：</label></div>
+                    <div class="weui-cell__bd"><input class="weui-input" id="file" style="height: 28px;"
+                                                      accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                                      type="file" placeholder="请选择文件"></div>
+                </div>
+
+            </div>
+
+            <div class="weui-cell weui-cells_radio">
+                <div class="weui-cell__hd">
+                    <div class="weui-label" style="width: 500px;">
+                        <button class="weui-btn weui-btn_mini weui-btn_primary" type="button" @click="upload"
+                                style="cursor: pointer">上传
+                        </button>
+                        <button class="weui-btn weui-btn_mini weui-btn_primary" type="button"
+                                @click="window.location.href= '员工列表.xlsx'" style="cursor: pointer">下载模板
+                        </button>
+                        <button class="weui-btn weui-btn_mini weui-btn_primary" type="button" style="cursor: pointer"
+                                @click="showMain = false">修改令牌
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <hr>
+
+        内定人员:(最后一个手机号将在下一轮中奖，中奖后自动移除手机号)
+        <form id="nf" role="form">
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">手机号：</label></div>
+                    <div class="weui-cell__bd"><input class="weui-input" v-model="ndPhone" type="text"
+                                                      placeholder="请输入手机号">
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui-cell weui-cells_radio">
+                <div class="weui-cell__hd">
+                    <div class="weui-label" style="width: 200px;">
+                        <button class="weui-btn weui-btn_mini weui-btn_primary" type="button" style="cursor: pointer"
+                                @click="addNd">添加
+                        </button>
+                        <button class="weui-btn weui-btn_mini weui-btn_primary" type="button" style="cursor: pointer"
+                                @click="rmNd">移除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        当期内定手机号：
+        <span>{{ ndArr === '' ? '暂无' : ndArr }}</span>
+    </div>
+
+    <div v-if="!showMain">
+        <div style="width: 400px;height: 200px;margin:auto;">
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">令牌：</label></div>
+                    <div class="weui-cell__bd"><input class="weui-input" v-model="token" type="text"
+                                                      placeholder="请输入令牌">
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cell weui-cells_radio" style="text-align: center">
+                <div class="weui-cell__hd">
+                    <div class="weui-label" style="width: 200px;">
+                        <button class="weui-btn weui-btn_mini weui-btn_primary" type="button" style="cursor: pointer; width: 190%;"
+                                @click="addToken">确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/tagcanvas.js"></script>
+<script type="text/javascript">
+    (function () {
+        new Vue({
+            el: '#tools',
+            data: {
+                data: null,
+                running: false,
+                ndPhone: null,
+                msg: null,
+                ndArr: '暂无',
+                showMain: false,
+                token: null
+            },
+            mounted() {
+                let token = localStorage.getItem("token")
+                console.log(token)
+                if (token === null) {
+                    this.showMain = false
+                } else {
+                    this.token = token
+                    this.showMain = true
+                    let that = this
+                    $.post('/api/opt/getNd', {phone: this.ndPhone}, function (res) {
+                        let arr = []
+                        res.data.map(m => {
+                            arr.push(m.phone)
+                        })
+                        that.ndArr = arr.join(",")
+                    }, 'json', token)
+
+                    $.post('/api/opt/getAll', null, function (res) {
+                        that.data = res.data
+                    }, 'json', token)
+                }
+            },
+            methods: {
+                addNd() {
+                    let that = this
+                    if (!this.ndPhone) {
+                        alert("请填写手机号")
+                        return
+                    }
+
+                    let arr = []
+                    $.post('/api/opt/setNd', {phone: this.ndPhone}, function (res) {
+                        if (res.code !== 100) {
+                            alert("手机号不存在！")
+                            return
+                        }
+                        res.data.map(m => {
+                            arr.push(m.phone)
+                        })
+                        that.ndArr = arr.join(",")
+                        that.ndPhone = null
+                    }, 'json', that.token)
+                },
+                rmNd() {
+                    let that = this
+                    if (!this.ndPhone) {
+                        alert("请填写手机号")
+                        return
+                    }
+                    $.post('/api/opt/delNd', {phone: this.ndPhone}, function (res) {
+                        let arr = that.ndArr.split(",");
+                        let i = arr.indexOf(that.ndPhone)
+                        arr.splice(i, 1)
+                        that.ndArr = arr.join(",")
+                        that.ndPhone = null
+                    }, 'json', that.token)
+
+                },
+                upload() {
+                    postData()
+                }
+                ,
+                addToken() {
+                    localStorage.setItem("token", this.token)
+                    this.showMain = true
+                    let red = this.GetQueryString('redirect')
+                    if(red && red !== '') {
+                        window.location.href = '/'
+                    }
+                },
+                GetQueryString(name) {
+                    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                    let r = window.location.search.substr(1).match(reg);
+                    if (r != null) return unescape(r[2]);
+                    return null;
+                }
+            }
+        });
+
+        function postData() {
+            var formData = new FormData();
+            var file = $("#file")[0].files[0]
+            if (!file) {
+                alert("请选择文件！")
+                return
+            }
+            formData.append("file", file);
+            $.ajax({
+                url: '/api/opt/upload', /*接口域名地址*/
+                type: 'post',
+                data: formData,
+                contentType: false,
+                headers: {token: 1},
+                processData: false,
+                success: function (res) {
+                    if (res.code === 100) {
+                        alert('更新员工成功');
+                    } else {
+                        alert('失败');
+                    }
+                }
+            })
+        }
+
+    })();
+</script>
+</body>
+</html>

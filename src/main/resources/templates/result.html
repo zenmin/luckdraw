@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+    <title>中奖名单</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/wall.css">
+    <style type="text/css">
+        .wall {
+            overflow: scroll;
+            background-repeat: repeat;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mask {
+            -webkit-filter: blur(5px);
+            filter: blur(5px);
+        }
+
+        #main {
+            -webkit-transition: all 1s;
+            transition: all 1s;
+        }
+
+        .result-list {
+            text-align: center;
+            color: #4de7c8;
+            font-size: 30px;
+            line-height: 50px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            font-family: '幼圆';
+        }
+
+        .result-title {
+            text-align: center;
+            color: #4de7c8;
+            font-size: 40px;
+            margin-top: 100px;
+            font-family: '幼圆';
+        }
+
+    </style>
+</head>
+<body>
+<div id="main" class="wall">
+    <div class="result-title">获奖名单</div>
+    <br/>
+    <div class="result-list" v-for="item in results">
+        <span style="font-weight: bold">第 {{item.num}} 轮</span>
+        <br />
+        <div v-for="i in item.data">
+            {{ i }}
+        </div>
+        <hr style="border: 1px dashed; color: rgba(44, 44, 135, 0.26)"/>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#main',
+        data: {
+            results: [],
+            cjMap: {},
+            objs: {}
+        },
+        mounted() {
+            let num = localStorage.getItem("num")
+            if (!num || num === 0) {
+                return
+            }
+            for (let i = 1; i <= num; i++) {
+                let arr = localStorage.getItem(i)
+                let temp = JSON.parse(arr)
+                temp = temp.map(item => {
+                    return item.replace('<br/>', ' ')
+                }
+            )
+                this.results.push({num: i, data: temp})
+            }
+            console.log(this.results)
+        }
+    })
+</script>
+</body>
+</html>
