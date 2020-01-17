@@ -35,11 +35,11 @@
 set token xxxx(你的令牌)
 ```
 
-4、等待程序启动完成直接访问打印在java console上的地址
+6、等待程序启动完成直接访问打印在java console上的地址
 
-5、打开java console上的地址如http://127.0.0.1:2345 然后输入刚刚在redis中设置令牌即可使用
+7、打开java console上的地址如http://127.0.0.1:2345 然后输入刚刚在redis中设置令牌即可使用
 
-6、进入管理地址http://127.0.0.1:2345/mgr 对程序进行管理
+8、进入管理地址http://127.0.0.1:2345/mgr 对程序进行管理
 
 ###### 如果需要修改配置如使用远程redis 请编辑application.properties文件
 
