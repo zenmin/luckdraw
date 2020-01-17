@@ -8,7 +8,9 @@
  |______\__,_|\___|_|\_\ |_____/|_|  \__,_| \_/\_/
 
                 Author:Zm
+
             WeChat:zenmin2012
-                  ${AnsiColor.BRIGHT_GREEN}系统启动中....${AnsiColor.BRIGHT_WHITE}
+
+                ${AnsiColor.BRIGHT_GREEN}系统启动中....${AnsiColor.BRIGHT_WHITE}
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
