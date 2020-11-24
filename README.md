@@ -62,13 +62,15 @@ set TOKEN xxxx(你的令牌)
 
 前提：需要JRE环境 下面有下载地址
 
-1、[下载release包](https://github.com/zenmin/luckdraw/releases/download/1.0/luckdraw-0.0.1-SNAPSHOT.jar)
+1、[下载release包和外部配置文件](https://github.com/zenmin/luckdraw/releases/download/1.0/luckdraw-0.0.1-SNAPSHOT.jar)
 
 ```shell
 wget https://github.com/zenmin/luckdraw/releases/download/1.0/luckdraw-0.0.1-SNAPSHOT.jar
+waget https://github.com/zenmin/luckdraw/raw/master/src/main/resources/application.properties
 ```
 
-2、运行程序
+2、- 修改application.properties中的配置
+   - 运行程序
 
 ```shell
 java -jar -Xms128m -Xmx128m ./luckdraw-0.0.1-SNAPSHOT.jar
