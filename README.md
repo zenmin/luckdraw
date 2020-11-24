@@ -66,11 +66,11 @@ set TOKEN xxxx(你的令牌)
 
 ```shell
 wget https://github.com/zenmin/luckdraw/releases/download/1.0/luckdraw-0.0.1-SNAPSHOT.jar
-waget https://github.com/zenmin/luckdraw/raw/master/src/main/resources/application.properties
+wget https://github.com/zenmin/luckdraw/raw/master/src/main/resources/application.properties
 ```
 
 2、修改application.properties中的配置
-   运行程序
+   - 运行程序
 
 ```shell
 java -jar -Xms128m -Xmx128m ./luckdraw-0.0.1-SNAPSHOT.jar
