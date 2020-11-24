@@ -32,7 +32,7 @@
 5、进入redis console db0 执行命令
 
 ```CQL
-set token xxxx(你的令牌)
+set TOKEN xxxx(你的令牌)
 ```
 
 6、等待程序启动完成直接访问打印在java console上的地址
@@ -55,7 +55,7 @@ set token xxxx(你的令牌)
 2、给redis设置默认token （使用RedisDesktopManager或redis-cli）
 
 ```CQL
-set token xxxx(你的令牌)
+set TOKEN xxxx(你的令牌)
 ```
 
 ### 方式① 本地jar启动
@@ -164,7 +164,7 @@ docker run --name luckdraw -d -p 8080:2345 luckdraw
   ### Redis启动后先设置程序访问令牌 进入redis console（使用RedisDesktopManager或redis-cli） 执行命令
 
   ```CQL
-  set token xxxx(你的令牌)
+  set TOKEN xxxx(你的令牌)
   ```
 
 ```shell
