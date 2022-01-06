@@ -282,7 +282,7 @@
             // 移除nd
             if (ndArr && ndArr !== null && ndArr.length > 0) {
                 $.post('/api/opt/delNd', {phone: ndm.phone}, function (res) {
-                }, 'json', 1)
+                }, 'json', localStorage.getItem("token"))
             }
             return ret;
         };
@@ -317,7 +317,7 @@
                             dragControl: 1,
                             textHeight: 14
                         });
-                    }, 'json', token)
+                    }, 'json', localStorage.getItem("token"))
                 }
 
             },
@@ -369,7 +369,7 @@
                         let that = this
                         $.post('/api/opt/getNd', null, function (res) {
                             that.ndArr = res.data
-                        }, 'json', 1)
+                        }, 'json', localStorage.getItem("token"))
 
                         $('#result').css('display', 'none');
                         $('#main').removeClass('mask');

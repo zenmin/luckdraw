@@ -18,7 +18,7 @@
 <body>
 <div id="tools">
 
-    <div v-if="showMain">
+    <div v-if="showMain" style="margin: 15px;">
 
         员工管理:
         <form id="frm" role="form">
@@ -51,8 +51,10 @@
 
 
         <hr>
-
-        内定人员:(最后一个手机号将在下一轮中奖，中奖后自动移除手机号)
+        <br>
+        <p>内定人员:
+        <p style="font-size: 12px;color: gray">一次添加一个，可以添加多个</p>
+        <p style="font-size: 12px;color: gray">最后一个手机号将在下一轮中奖，中奖后自动移除手机号</p>
         <form id="nf" role="form">
             <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
@@ -93,7 +95,8 @@
             <div class="weui-cell weui-cells_radio" style="text-align: center">
                 <div class="weui-cell__hd">
                     <div class="weui-label" style="width: 200px;">
-                        <button class="weui-btn weui-btn_mini weui-btn_primary" type="button" style="cursor: pointer; width: 190%;"
+                        <button class="weui-btn weui-btn_mini weui-btn_primary" type="button"
+                                style="cursor: pointer; width: 190%;"
                                 @click="addToken">确定
                         </button>
                     </div>
@@ -122,7 +125,6 @@
             },
             mounted() {
                 let token = localStorage.getItem("token")
-                console.log(token)
                 if (token === null) {
                     this.showMain = false
                 } else {
@@ -186,7 +188,7 @@
                     localStorage.setItem("token", this.token)
                     this.showMain = true
                     let red = this.GetQueryString('redirect')
-                    if(red && red !== '') {
+                    if (red && red !== '') {
                         window.location.href = '/'
                     }
                 },
