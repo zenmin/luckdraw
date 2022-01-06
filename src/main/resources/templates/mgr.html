@@ -212,7 +212,7 @@
                 type: 'post',
                 data: formData,
                 contentType: false,
-                headers: {token: 1},
+                headers: {token: localStorage.getItem("token")},
                 processData: false,
                 success: function (res) {
                     if (res.code === 100) {
